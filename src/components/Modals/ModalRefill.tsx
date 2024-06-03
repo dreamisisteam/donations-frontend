@@ -8,7 +8,11 @@ import Button from '@/ui/Button/Button';
 import { PageContext } from '@/app/blockchainContext';
 import { parseUnits } from 'ethers';
 
-export default function ModalRefill() {
+interface IModalRefill {
+	closeModal: () => void
+}
+
+export default function ModalRefill({closeModal}: IModalRefill) {
 	const { trigger, control, register, handleSubmit, formState: {errors} } = useForm<TRefill>({
 		resolver: yupResolver(refillSchema),
 		mode: "onBlur",
@@ -27,15 +31,19 @@ export default function ModalRefill() {
 		console.log('err', errors)
 	}, [watchSum])
 
+	const onModalChange = () => {
+		let html = document?.querySelector('html');
+		html?.classList?.remove('fixed')
+		closeModal();
+	}
+
 	const sendRefill = async () => {
-		// console.log('exchangerContract', exchangerContract)
-		// console.log(await exchangerContract.owner());
-		// await exchangerContract?.send({ value: parseUnits(summaInGwei.toString(), "gwei")});
 		await signer.sendTransaction({
 			from: selectedAccount,
 			to: contractAddress,
 			value:  parseUnits(summaInGwei.toString(), "gwei"),
 		})
+		onModalChange()
 	}
 
 	return (

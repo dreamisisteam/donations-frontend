@@ -76,7 +76,7 @@ export default function Header() {
 			</nav>
 			<ModalWrap isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened}>
 				<h3 className='modal-title'>Пополнить DNTT</h3>
-				<ModalRefill />
+				<ModalRefill closeModal={() => setIsModalOpened(false)} />
 			</ModalWrap>
 		</>
 	)

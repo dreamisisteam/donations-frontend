@@ -42,7 +42,7 @@ export default function Participant({variant, info}: IPrticipant) {
 	return (
 		<>
 		<div className={styles.participant}>
-			{variant == 'default' && <img className={styles.photo} src={process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url} />}
+			{variant == 'default' && <img alt='Фото' className={styles.photo} src={info.avatar_url ? process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url : '/img/avatar-mock.jpg'} />}
 			<div className={[styles['participant-info-block'], variant == 'alternative' ? 'align-items-end' : ''].join(' ')}>
 				<div className={[styles['name'], variant == 'alternative' ? 'text-end' : ''].join(' ')}>{info.user.first_name} {info.user.last_name}</div>
 				<div className={styles.badges}>
@@ -63,7 +63,7 @@ export default function Participant({variant, info}: IPrticipant) {
 					disabled={!selectedAccount}
 				/>
 			</div>
-			{variant == 'alternative' && <img className={styles['photo-reverse']} src={process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url} />}
+			{variant == 'alternative' && <img className={styles['photo-reverse']} alt='Фото' src={info.avatar_url ? process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url : '/img/avatar-mock.jpg'} />}
 			<ModalWrap isModalOpened={openedSupport} setIsModalOpened={setOpenedSupport}>
 				<h3 className='modal-title'>Поддержать: {info.user.first_name + ' ' + info.user.last_name}</h3>
 				<Modal type='certain' participantAddress={info?.address} closeModal={() => setOpenedSupport(false)} />
