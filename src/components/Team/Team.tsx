@@ -14,7 +14,8 @@ export default function Team() {
 		queryFn: async () => {
 			const res = await getMembers()
 			return res?.data?.items
-		}
+		},
+		refetchInterval: 30000
 	})
 
 	return (
