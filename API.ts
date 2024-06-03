@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const baseServiceUrl = process.env.NEXT_PUBLIC_BASE_SERVICE_URL;
 const axiosInstance = axios.create({
-	baseURL: 'http://backend-blockchain.com:8001/api/v1',
+	baseURL: baseServiceUrl + '/api/v1',
 	responseType: 'json'
 })
 

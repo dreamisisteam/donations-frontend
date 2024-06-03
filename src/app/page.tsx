@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/Header/Header";
@@ -7,12 +6,8 @@ import AboutUs from "@/components/AboutUs/AboutUs";
 import Team from "@/components/Team/Team";
 import SupportTeam from "@/components/SupportTeam/SupportTeam";
 import { ContractRunner, Eip1193Provider, ethers, formatUnits } from "ethers";
-import ConnectWallet from "@/components/ConnectWallet/ConnectWallet";
 import { useEffect, useState } from "react";
 import { MetaMaskInpageProvider } from "@metamask/providers";
-
-import DonationExchanger from "../../DonationExchanger.json";  // TODO: from backend
-import DonationToken from "../../DonationToken.json"  // TODO: from backend
 
 import { PageContext } from "./blockchainContext";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -61,7 +56,6 @@ export default function Home() {
 	const connectWallet = async () => {
 		console.log("connectWallet");
 		if (window?.ethereum === undefined) {
-			console.log("ethereum === undefined");
 			setNetworkError("Please install Metamask");
 			return;
 		}
@@ -69,8 +63,6 @@ export default function Home() {
 			method: "eth_requestAccounts",
 		});
 
-		console.log("!checkNetwork", !checkNetwork());
-		console.log("selectedAddress", selectedAddress);
 		if (!checkNetwork()) return;
 	};
 
@@ -79,7 +71,7 @@ export default function Home() {
 			window.ethereum as Eip1193Provider
 		);
 		setProvider(providerData);
-	
+
 		const signerInstance = await providerData.getSigner(0) as unknown as ContractRunner;
 		setSigner(signerInstance);
 
@@ -99,8 +91,6 @@ export default function Home() {
 			signerInstance,
 		);
 		setTokenContract(tokenData);
-
-		console.log(selectedAddress);
 		setSelectedAccount(selectedAddress);
 	};
 
@@ -112,7 +102,6 @@ export default function Home() {
 		const [selectedAddress]: any = await window?.ethereum?.request({
 			method: "eth_accounts",
 		});
-		console.log("addressOnLoad", selectedAddress);
 		if (selectedAddress) {
 			initialize(selectedAddress);
 		}
@@ -121,7 +110,6 @@ export default function Home() {
 
 	const getNetworkSchemaData = async () => {
 		const res = await getNetworkSchema();
-		console.log('res', res.data)
 		setContractAddress(res?.data?.contract_address)
 		setExchangerContractAbi(res?.data?.exchanger_contract_abi)
 		setDonationTokenAbi(res?.data?.token_contract_abi)
@@ -132,14 +120,6 @@ export default function Home() {
 		checkAddress();
 	}, []);
 
-
-	// useEffect(() => {
-	// 	getNetworkSchemaData();
-	// }, []);
-
-	// useEffect(() => {
-	// 	checkAddress();
-	// }, [contractAddress, exchangerContractAbi, donationTokenAbi]);
 
 	const updateBalance = async () => {
 		if (selectedAccount) {
@@ -161,7 +141,6 @@ export default function Home() {
 	};
 
 	const checkNetwork = () => {
-		console.log(window.ethereum?.networkVersion);
 		if (window.ethereum?.networkVersion === HARDHAT_NETWORK_ID) return true;
 			setNetworkError("Please connect to localhost:8545");
 		return false;

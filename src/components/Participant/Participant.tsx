@@ -6,6 +6,7 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import ModalWrap from '../ModalWrap/ModalWrap';
 import Modal from '../Modals/Modal';
 import { PageContext } from '@/app/blockchainContext';
+import { env } from 'process';
 
 interface INeeds {
 	name: string,
@@ -28,7 +29,7 @@ interface IParticipantInfo  {
 }
 
 interface IPrticipant {
-	variant: 'default' | 'alternative', 
+	variant: 'default' | 'alternative',
 	info: IParticipantInfo;
 }
 
@@ -41,7 +42,7 @@ export default function Participant({variant, info}: IPrticipant) {
 	return (
 		<>
 		<div className={styles.participant}>
-			{variant == 'default' && <img className={styles.photo} src={'http://backend-blockchain.com:8001' + info.avatar_url} />}
+			{variant == 'default' && <img className={styles.photo} src={process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url} />}
 			<div className={[styles['participant-info-block'], variant == 'alternative' ? 'align-items-end' : ''].join(' ')}>
 				<div className={[styles['name'], variant == 'alternative' ? 'text-end' : ''].join(' ')}>{info.user.first_name} {info.user.last_name}</div>
 				<div className={styles.badges}>
@@ -55,14 +56,14 @@ export default function Participant({variant, info}: IPrticipant) {
 				<div className={styles.needs}>Собирает на: {info?.needs?.map((item) => item.name + '(' + item.total + ')').join(', ')}.</div>
 				<div className='caption mb-1'>Собрано: {info?.charges} из {info?.total}</div>
 				<ProgressBar total={info?.total} charges={info?.charges} />
-				<Button 
-					addClass='mt-4' 
-					text='Поддержать' 
+				<Button
+					addClass='mt-4'
+					text='Поддержать'
 					onClickF={() => setOpenedSupport(true)}
 					disabled={!selectedAccount}
 				/>
 			</div>
-			{variant == 'alternative' && <img className={styles['photo-reverse']} src={'http://backend-blockchain.com:8001' + info.avatar_url} />}
+			{variant == 'alternative' && <img className={styles['photo-reverse']} src={process.env.NEXT_PUBLIC_BASE_SERVICE_URL + info.avatar_url} />}
 			<ModalWrap isModalOpened={openedSupport} setIsModalOpened={setOpenedSupport}>
 				<h3 className='modal-title'>Поддержать: {info.user.first_name + ' ' + info.user.last_name}</h3>
 				<Modal type='certain' participantAddress={info?.address} closeModal={() => setOpenedSupport(false)} />

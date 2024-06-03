@@ -36,7 +36,7 @@ export default function Modal({type, participantAddress, closeModal}: IModal) {
 		html?.classList?.remove('fixed')
 		closeModal();
 	}
-	
+
 	const support = async () => {
 		console.log(await tokenContract.balanceOf(selectedAccount))
 		if (type == 'all') {
@@ -47,7 +47,7 @@ export default function Modal({type, participantAddress, closeModal}: IModal) {
 			await tx.wait();
 		} else {
 			console.log('конкретный чел')
-			await tokenContract.transfer(participantAddress, watchSum)
+			await tokenContract.donateTransfer(participantAddress, watchSum)
 		}
 		queryClient.invalidateQueries({ queryKey: ['members'] });
 		onModalChange()
