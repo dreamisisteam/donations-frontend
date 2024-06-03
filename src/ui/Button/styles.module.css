@@ -1,0 +1,19 @@
+.button {
+	width: fit-content;
+	padding: 8px 16px;
+	border-radius: 12px;
+	border: 1px solid var(--primary);
+	color: var(--primary);
+	transition-duration: 0.3s;
+}
+
+.button:hover {
+	color: var(--white);
+	background-color: var(--secondary);
+	border-color: var(--secondary);
+}
+
+.button.disabled {
+	pointer-events: none;
+	opacity: 0.4;
+}

@@ -1,0 +1,25 @@
+.input {
+	position: relative;
+	padding: 0 0 20px;
+}
+
+.input__field {
+	border: none;
+	padding: 8px 16px;
+	border: 1px solid var(--primary);
+	outline: none;
+	border-radius: 8px;
+	transition-duration: 0.3s;
+}
+
+.input__field.error {
+	border-color: var(--error);
+}
+
+.input__error {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size: 12px;
+	color: var(--error);
+}

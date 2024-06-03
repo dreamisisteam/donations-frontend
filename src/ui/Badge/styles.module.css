@@ -1,0 +1,27 @@
+.badge {
+	border-radius: 16px;
+	font-size: 10px;
+	color: var(--white);
+	padding: 4px 8px;
+	width: fit-content;
+}
+
+.badge:not(:last-child) {
+	margin-right: 4px;
+}
+
+.badge:nth-child(n) {
+	background-color: var(--primary);
+}
+
+.badge:nth-child(2n) {
+	background-color: var(--secondary);
+}
+
+.badge:nth-child(3n) {
+	background-color: var(--light-green);
+}
+
+.badge:nth-child(4n) {
+	background-color: var( --mint);
+}

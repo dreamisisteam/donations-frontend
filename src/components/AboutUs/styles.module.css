@@ -1,0 +1,12 @@
+.about {
+	padding: 128px 0;
+}
+
+.info {
+	display: flex;
+	justify-content: center;
+}
+
+.text {
+	max-width: 1024px;
+}
