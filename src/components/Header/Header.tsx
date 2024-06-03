@@ -48,7 +48,7 @@ export default function Header() {
 			<nav className={[styles.header, 'container'].join(' ')}>
 				<div className={styles.logo}>
 					<Logo />
-					Support Coin
+					DONUT
 				</div>
 				<div className={styles.links}>
 					<a href='#about' className={styles.link}>О нас</a>
